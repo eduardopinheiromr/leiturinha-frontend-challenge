@@ -1,6 +1,6 @@
 import { AppProps } from "next/app";
 import { ProductsStore, StoreProvider } from "../stores";
-import "../styles/globals.css";
+import "tailwindcss/tailwind.css";
 
 const store = new ProductsStore();
 
