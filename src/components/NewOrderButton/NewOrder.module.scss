@@ -1,5 +1,10 @@
-.error {
+.root {
   color: white;
-  background-color: red;
-  @apply my-4;
+  background: #000;
+  @apply my-4
+  p-3
+  rounded-lg;
+  &:hover {
+    @apply bg-primary;
+  }
 }
