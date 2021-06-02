@@ -15,6 +15,8 @@ class ProductsStore {
   products: Product[] = [];
   newOrder: Order = orderInitialState;
   orders: Order[] = [];
+  step: number = 1;
+  modal: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -46,6 +48,22 @@ class ProductsStore {
       id: this.orders.length + 1,
       datetime: new Date(),
     });
+  }
+
+  getStep() {
+    return this.step;
+  }
+
+  setStep(step: number) {
+    this.step = step;
+  }
+
+  getModal() {
+    return this.modal;
+  }
+
+  toggleModal() {
+    this.modal = !this.modal;
   }
 }
 

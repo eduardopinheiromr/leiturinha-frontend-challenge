@@ -1,30 +1,21 @@
 import React from "react";
 import styles from "./Modal.module.scss";
 
-type Button = {
-  label: string;
-  onClick: () => void;
-};
-
 type Props = {
   children: JSX.Element | JSX.Element[];
   open: boolean;
   onClose: () => void;
   title: string;
-  buttons: {
-    confirm?: Button;
-    cancel: Button;
-  };
+  confirm: JSX.Element;
 };
 
 export default function index({
   children,
   open,
   onClose,
-  buttons,
+  confirm,
   title,
 }: Props) {
-  const { cancel, confirm } = buttons;
   return (
     <>
       {open && (
@@ -46,19 +37,11 @@ export default function index({
                   <button
                     type="button"
                     className={styles.cancel}
-                    onClick={cancel.onClick}
+                    onClick={onClose}
                   >
-                    {cancel.label}
+                    Cancelar
                   </button>
-                  {confirm && (
-                    <button
-                      type="button"
-                      className={styles.confirm}
-                      onClick={confirm.onClick}
-                    >
-                      {confirm.label}
-                    </button>
-                  )}
+                  {confirm}
                 </div>
               </div>
             </div>

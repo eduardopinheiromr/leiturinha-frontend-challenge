@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import Card from "../Card";
+import StepChip from "../StepChip";
 import { useStore } from "src/stores";
 import styles from "./OrderFlow.module.scss";
 import { observer } from "mobx-react-lite";
@@ -12,10 +13,9 @@ type Props = {
 const index = observer(({ closeModal }: Props) => {
   const { wrapper } = styles;
   const store = useStore();
+  const step = store.getStep();
 
   const newOrder = store.getNewOrder();
-
-  const [step, setStep] = useState(1);
 
   const food = store
     .getProducts()
@@ -33,24 +33,38 @@ const index = observer(({ closeModal }: Props) => {
     [drink]
   );
 
+  const handleNextStep = (key?: string) => {
+    if (key === "Enter") {
+      store.setStep(step + 1);
+      return;
+    }
+  };
+
+  console.log(newOrder.customerName.length === 0);
+
+  const steps = [
+    { label: "Nome do cliente", step: 1 },
+    { label: "Escolha da comida", step: 2 },
+    { label: "Escolha da bebida", step: 3 },
+  ];
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-between">
-        <p className={step === 1 ? "font-bold" : ""} onClick={() => setStep(1)}>
-          Passo 1 - Nome do cliente
-        </p>
-        <p>&gt;</p>
-        <p className={step === 2 ? "font-bold" : ""} onClick={() => setStep(2)}>
-          Passo 2 - Escolha da comida
-        </p>
-        <p>&gt;</p>
-        <p className={step === 3 ? "font-bold" : ""} onClick={() => setStep(3)}>
-          Passo 3 - Escolha da bebida
-        </p>
+        {steps.map((current, key) => (
+          <StepChip
+            key={key}
+            position={current.step}
+            step={step}
+            onClick={() => store.setStep(current.step)}
+            label={current.label}
+          />
+        ))}
       </div>
 
       {step === 1 && (
         <input
+          autoFocus
           type="text"
           className="my-10 p-5 mx-auto w-72"
           placeholder="Digite o nome do cliente"
@@ -61,6 +75,7 @@ const index = observer(({ closeModal }: Props) => {
               customerName: event.currentTarget.value,
             })
           }
+          onKeyUp={event => handleNextStep(event.key)}
         />
       )}
       {step === 2 && (
@@ -73,17 +88,18 @@ const index = observer(({ closeModal }: Props) => {
           <div className={wrapper}>{drinkCards}</div>
         </div>
       )}
-      <div
+      {/* <button
+        disabled={isNextStepDisabled}
         onClick={() => {
           if (step < 3) return setStep(step + 1);
           store.addNewOrder(newOrder);
           store.setNewOrder(orderInitialState);
           closeModal();
         }}
-        className="mx-auto py-5 px-10 bg-black rounded-xl text-white hover:bg-primary hover:cursor-pointer"
+        className="mx-auto py-5 px-10 bg-black rounded-xl text-white hover:bg-primary hover:cursor-pointer disabled:bg-gray-300 disabled:cursor-default transition"
       >
-        <button>{step < 3 ? "Próximo" : "Gerar pedido"}</button>
-      </div>
+        {step < 3 ? "Próximo" : "Gerar pedido"}
+      </button> */}
     </div>
   );
 });

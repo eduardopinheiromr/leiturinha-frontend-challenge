@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NewOrderButton from "../NewOrderButton";
 import Modal from "../Modal";
 import OrderFlow from "../OrderFlow";
+import StepButton from "../StepButton";
 import styles from "./Header.module.scss";
 
 export default function index() {
@@ -9,19 +10,13 @@ export default function index() {
 
   const [modal, toggleModal] = useState(false);
 
-  const modalButtons = {
-    cancel: {
-      label: "Cancelar",
-      onClick: () => toggleModal(false),
-    },
-  };
   return (
     <div className={root}>
       <h1>Pedidos</h1>
       <NewOrderButton onClick={() => toggleModal(true)} />
       <Modal
         title="Novo pedido"
-        buttons={modalButtons}
+        confirm={<StepButton />}
         open={modal}
         onClose={() => toggleModal(false)}
       >
