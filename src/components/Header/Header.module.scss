@@ -6,6 +6,10 @@
     w-full;
 
   h1 {
-    @apply text-3xl lg:text-6xl;
+    @apply text-3xl lg:text-5xl;
   }
+}
+
+.wrapper {
+  @apply flex flex-wrap justify-center;
 }

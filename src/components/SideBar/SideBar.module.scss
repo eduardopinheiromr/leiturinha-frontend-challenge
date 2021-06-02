@@ -1,5 +1,5 @@
 .root {
-  @apply bg-primary;
+  @apply bg-primary flex items-center md:pt-32 md:flex-col;
   height: 50px;
   @screen md {
     width: 400px;

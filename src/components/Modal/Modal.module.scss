@@ -23,6 +23,8 @@
 .content {
   padding: 25px;
   height: 78%;
+  @apply overflow-y-scroll;
+
   @screen sm {
     height: 85%;
   }

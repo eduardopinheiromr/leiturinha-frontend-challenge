@@ -12,7 +12,7 @@ type Props = {
   onClose: () => void;
   title: string;
   buttons: {
-    confirm: Button;
+    confirm?: Button;
     cancel: Button;
   };
 };
@@ -50,13 +50,15 @@ export default function index({
                   >
                     {cancel.label}
                   </button>
-                  <button
-                    type="button"
-                    className={styles.confirm}
-                    onClick={confirm.onClick}
-                  >
-                    {confirm.label}
-                  </button>
+                  {confirm && (
+                    <button
+                      type="button"
+                      className={styles.confirm}
+                      onClick={confirm.onClick}
+                    >
+                      {confirm.label}
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
