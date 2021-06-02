@@ -1,21 +1,24 @@
 import React from "react";
 import styles from "./Modal.module.scss";
+import { orderInitialState, useStore } from "src/stores";
+import { observer } from "mobx-react-lite";
 
 type Props = {
   children: JSX.Element | JSX.Element[];
-  open: boolean;
-  onClose: () => void;
   title: string;
   confirm: JSX.Element;
 };
 
-export default function index({
-  children,
-  open,
-  onClose,
-  confirm,
-  title,
-}: Props) {
+const index = observer(({ children, confirm, title }: Props) => {
+  const store = useStore();
+
+  const open = store.getModal();
+
+  const handleClose = () => {
+    store.toggleModal(false);
+    store.setNewOrder(orderInitialState);
+  };
+
   return (
     <>
       {open && (
@@ -37,7 +40,7 @@ export default function index({
                   <button
                     type="button"
                     className={styles.cancel}
-                    onClick={onClose}
+                    onClick={handleClose}
                   >
                     Cancelar
                   </button>
@@ -50,4 +53,6 @@ export default function index({
       )}
     </>
   );
-}
+});
+
+export default index;

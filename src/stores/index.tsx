@@ -2,13 +2,20 @@ import { makeAutoObservable } from "mobx";
 import { createContext, useContext, useEffect, FC } from "react";
 import { Order, Product } from "./types";
 import { getAllProducts } from "../services/products";
+import { transformNumberIntoBRL } from "src/utils";
 
 export const orderInitialState = {
   id: 0,
   datetime: new Date(),
   customerName: "",
   orderedItems: [],
-  total: 0,
+  total: "",
+  payment: {
+    name: "",
+    cardNumber: "",
+    goodThru: "",
+    cvv: "",
+  },
 };
 
 class ProductsStore {
@@ -43,10 +50,17 @@ class ProductsStore {
   }
 
   addNewOrder(order: Order) {
+    const total = transformNumberIntoBRL(
+      order.orderedItems
+        .map(item => item.price * item.quantity)
+        .reduce((total, current) => total + current)
+    );
+
     this.orders.push({
       ...order,
       id: this.orders.length + 1,
       datetime: new Date(),
+      total,
     });
   }
 
@@ -62,8 +76,8 @@ class ProductsStore {
     return this.modal;
   }
 
-  toggleModal() {
-    this.modal = !this.modal;
+  toggleModal(modal: boolean) {
+    this.modal = modal;
   }
 }
 
@@ -73,7 +87,6 @@ const StoreProvider: FC<{ store: ProductsStore }> = ({ store, children }) => {
   useEffect(() => {
     if (store.products.length === 0) {
       store.loadProducts();
-      console.log(store.products.length);
     }
   }, [store.products]);
 

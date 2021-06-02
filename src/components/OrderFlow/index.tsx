@@ -1,16 +1,12 @@
 import React, { useMemo, useState } from "react";
 import Card from "../Card";
 import StepChip from "../StepChip";
+import Payment from "../Payment";
 import { useStore } from "src/stores";
 import styles from "./OrderFlow.module.scss";
 import { observer } from "mobx-react-lite";
-import { orderInitialState } from "../../stores/index";
 
-type Props = {
-  closeModal: () => void;
-};
-
-const index = observer(({ closeModal }: Props) => {
+const index = observer(() => {
   const { wrapper } = styles;
   const store = useStore();
   const step = store.getStep();
@@ -40,12 +36,11 @@ const index = observer(({ closeModal }: Props) => {
     }
   };
 
-  console.log(newOrder.customerName.length === 0);
-
   const steps = [
     { label: "Nome do cliente", step: 1 },
     { label: "Escolha da comida", step: 2 },
     { label: "Escolha da bebida", step: 3 },
+    { label: "Pagamento", step: 4 },
   ];
 
   return (
@@ -88,18 +83,7 @@ const index = observer(({ closeModal }: Props) => {
           <div className={wrapper}>{drinkCards}</div>
         </div>
       )}
-      {/* <button
-        disabled={isNextStepDisabled}
-        onClick={() => {
-          if (step < 3) return setStep(step + 1);
-          store.addNewOrder(newOrder);
-          store.setNewOrder(orderInitialState);
-          closeModal();
-        }}
-        className="mx-auto py-5 px-10 bg-black rounded-xl text-white hover:bg-primary hover:cursor-pointer disabled:bg-gray-300 disabled:cursor-default transition"
-      >
-        {step < 3 ? "Próximo" : "Gerar pedido"}
-      </button> */}
+      {step === 4 && <Payment />}
     </div>
   );
 });

@@ -12,7 +12,15 @@ export type Order = {
   datetime: Date;
   customerName: string;
   orderedItems: Product[];
-  total: number;
+  total: string;
+  payment: CreditCard;
+};
+
+export type CreditCard = {
+  name: string;
+  cardNumber: string;
+  goodThru: string;
+  cvv: string;
 };
 
 export type Categories = "food" | "drink";

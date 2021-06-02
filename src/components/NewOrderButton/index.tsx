@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./NewOrder.module.scss";
+import { useStore } from "src/stores";
 
-type Props = {
-  onClick: () => void;
-};
-
-export default function NewOrderButton({ onClick }: Props) {
+export default function NewOrderButton() {
   const { root } = styles;
+
+  const store = useStore();
+
   return (
-    <button className={root} onClick={onClick}>
+    <button className={root} onClick={() => store.toggleModal(true)}>
       Novo pedido +
     </button>
   );

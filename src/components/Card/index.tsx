@@ -81,7 +81,7 @@ const index = observer(({ product }: Props) => {
             <button
               disabled={quantity === undefined}
               onClick={() => removeProduct()}
-              className="h-12 w-12 flex items-center justify-center rounded-full bg-black text-white cursor-pointer"
+              className="h-12 w-12 flex items-center justify-center rounded-full bg-black text-white cursor-pointer disabled:bg-gray-300"
             >
               -
             </button>

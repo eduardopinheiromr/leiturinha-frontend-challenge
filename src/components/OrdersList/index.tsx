@@ -6,7 +6,7 @@ import styles from "./OrdersList.module.scss";
 
 const index = observer(() => {
   const store = useStore();
-  const orders = store.getOrders();
+  const orders = [...store.getOrders()].sort((a, b) => b.id - a.id);
 
   const haveOrders = orders.length > 0;
   return (
