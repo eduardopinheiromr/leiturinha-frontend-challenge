@@ -1,3 +1,7 @@
 .root {
   @apply w-full bg-secondary;
+
+  @screen md {
+    @apply flex-row;
+  }
 }

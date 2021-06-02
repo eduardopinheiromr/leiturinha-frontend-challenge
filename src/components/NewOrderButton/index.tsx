@@ -1,7 +1,15 @@
 import React from "react";
 import styles from "./NewOrder.module.scss";
 
-export default function NewOrderButton() {
+type Props = {
+  onClick: () => void;
+};
+
+export default function NewOrderButton({ onClick }: Props) {
   const { root } = styles;
-  return <button className={root}>New Order +</button>;
+  return (
+    <button className={root} onClick={onClick}>
+      Novo pedido +
+    </button>
+  );
 }

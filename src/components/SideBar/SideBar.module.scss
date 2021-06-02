@@ -1,4 +1,8 @@
 .root {
-  width: 300px;
-  @apply bg-primary h-screen;
+  @apply bg-primary;
+  height: 50px;
+  @screen md {
+    width: 400px;
+    @apply h-screen;
+  }
 }
