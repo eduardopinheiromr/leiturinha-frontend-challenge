@@ -1,8 +1,9 @@
 .root {
   @apply bg-secondary;
 
+  min-height: 100vh;
+
   @screen md {
-    @apply flex-row;
     width: calc(100vw - 320px);
   }
 }

@@ -92,7 +92,7 @@ const index = observer(({ product, readOnly }: Props) => {
           </div>
         </>
       )}
-      <div className={`${root} ${readOnly ? "h-40" : "h-60"}`}>
+      <div className={`${root} ${readOnly ? "h-40" : "h-72 sm:h-60"}`}>
         <p className="font-bold text-xl">{product.name}</p>
         <p className="h-24">
           {product.description.length === 0
@@ -100,7 +100,7 @@ const index = observer(({ product, readOnly }: Props) => {
             : product.description}
         </p>
         {!readOnly && (
-          <div className="flex mt-4 items-center h-12">
+          <div className="flex mt-12 sm:mt-8 items-center h-16 sm:h-12">
             <div className="flex">
               <button
                 disabled={quantity === undefined}

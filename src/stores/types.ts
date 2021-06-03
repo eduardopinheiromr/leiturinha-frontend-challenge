@@ -23,6 +23,13 @@ export type CreditCard = {
   cvv: string;
 };
 
+export type Result = {
+  name: string;
+  quantity: number;
+  total: number;
+  category: string;
+};
+
 export type Module = "orders" | "billing";
 
 export type ModalContext = "newOrder" | "openOrder";

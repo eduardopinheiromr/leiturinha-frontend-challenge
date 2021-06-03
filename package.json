@@ -9,11 +9,13 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "chart.js": "^3.3.2",
     "mobx": "^6.3.2",
     "mobx-react": "^7.2.0",
     "mobx-react-lite": "^3.2.0",
     "next": "10.2.3",
     "react": "17.0.2",
+    "react-chartjs-2": "^3.0.3",
     "react-dom": "17.0.2",
     "react-input-mask": "^2.0.4",
     "sass": "^1.34.0"
