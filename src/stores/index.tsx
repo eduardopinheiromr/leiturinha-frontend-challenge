@@ -1,8 +1,9 @@
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext, useEffect, FC } from "react";
-import { Order, Product } from "./types";
+import { ModalContext, Order, Product } from "./types";
 import { getAllProducts } from "../services/products";
-import { transformNumberIntoBRL } from "src/utils";
+import { sumTotalPrice } from "src/utils";
+import axios from "axios";
 
 export const orderInitialState = {
   id: 0,
@@ -23,7 +24,12 @@ class ProductsStore {
   newOrder: Order = orderInitialState;
   orders: Order[] = [];
   step: number = 1;
-  modal: boolean = false;
+  modal: {
+    newOrder: boolean;
+    openOrder: boolean;
+  } = { newOrder: false, openOrder: false };
+  toast: boolean = false;
+  orderOpened: Order = orderInitialState;
 
   constructor() {
     makeAutoObservable(this);
@@ -49,12 +55,14 @@ class ProductsStore {
     this.newOrder = newOrder;
   }
 
-  addNewOrder(order: Order) {
-    const total = transformNumberIntoBRL(
-      order.orderedItems
-        .map(item => item.price * item.quantity)
-        .reduce((total, current) => total + current)
-    );
+  async addNewOrder(order: Order) {
+    const total = sumTotalPrice(order.orderedItems);
+
+    const { data } = await axios.post("http://localhost:3000/api/checkout", {
+      creditCard: order.payment,
+    });
+
+    console.log(data);
 
     this.orders.push({
       ...order,
@@ -72,12 +80,46 @@ class ProductsStore {
     this.step = step;
   }
 
-  getModal() {
-    return this.modal;
+  getModal(context: ModalContext) {
+    switch (context) {
+      case "newOrder":
+        return this.modal.newOrder;
+
+      case "openOrder":
+        return this.modal.openOrder;
+
+      default:
+        break;
+    }
   }
 
-  toggleModal(modal: boolean) {
-    this.modal = modal;
+  toggleModal(context: ModalContext, modal: boolean) {
+    switch (context) {
+      case "newOrder":
+        return (this.modal.newOrder = modal);
+
+      case "openOrder":
+        return (this.modal.openOrder = modal);
+
+      default:
+        break;
+    }
+  }
+
+  getOrderOpened() {
+    return this.orderOpened;
+  }
+
+  setOrderOpened(order: Order) {
+    this.orderOpened = order;
+  }
+
+  getToast() {
+    return this.toast;
+  }
+
+  toggleToast() {
+    this.toast = !this.toast;
   }
 }
 

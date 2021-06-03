@@ -8,7 +8,10 @@ export default function NewOrderButton() {
   const store = useStore();
 
   return (
-    <button className={root} onClick={() => store.toggleModal(true)}>
+    <button
+      className={root}
+      onClick={() => store.toggleModal("newOrder", true)}
+    >
       Novo pedido +
     </button>
   );

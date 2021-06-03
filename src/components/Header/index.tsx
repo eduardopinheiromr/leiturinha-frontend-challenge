@@ -12,7 +12,7 @@ export default function index() {
     <div className={root}>
       <h1>Pedidos</h1>
       <NewOrderButton />
-      <Modal title="Novo pedido" confirm={<StepButton />}>
+      <Modal context="newOrder" title="Novo pedido" confirm={<StepButton />}>
         <OrderFlow />
       </Modal>
     </div>

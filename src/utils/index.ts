@@ -38,3 +38,14 @@ export const creditCardFlag = (value: string) => {
   }
   return flag.def;
 };
+
+export const sumTotalPrice = (products: Product[]) => {
+  if (products.length > 0) {
+    return transformNumberIntoBRL(
+      products
+        .map(item => item.price * item.quantity)
+        .reduce((total, current) => total + current)
+    );
+  }
+  return "0";
+};

@@ -1,15 +1,16 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Product } from "src/stores/types";
 import { transformNumberIntoBRL } from "src/utils";
-import styles from "./Card.module.scss";
+import styles from "./ProductCard.module.scss";
 import { useStore } from "src/stores";
 import { observer } from "mobx-react-lite";
 
 type Props = {
   product: Product;
+  readOnly?: boolean;
 };
 
-const index = observer(({ product }: Props) => {
+const index = observer(({ product, readOnly }: Props) => {
   const { root } = styles;
   const store = useStore();
   const newOrder = store.getNewOrder();
@@ -73,29 +74,53 @@ const index = observer(({ product }: Props) => {
           <div className="text-xl">{quantity}</div>
         </div>
       )}
-      <div className={root}>
-        <p className="font-bold text-xl">{product.name}</p>
-        <p className="h-24">{product.description}</p>
-        <div className="flex mt-4 items-center h-12">
-          <div className="flex">
-            <button
-              disabled={quantity === undefined}
-              onClick={() => removeProduct()}
-              className="h-12 w-12 flex items-center justify-center rounded-full bg-black text-white cursor-pointer disabled:bg-gray-300"
-            >
-              -
-            </button>
-            <div
-              onClick={() => addProduct()}
-              className="ml-3 h-12 w-12 flex items-center justify-center rounded-full bg-black text-white  cursor-pointer"
-            >
-              +
+      {readOnly && (
+        <>
+          <div
+            className="absolute h-12 w-12 flex justify-center items-center rounded-full bg-black text-white"
+            style={{ left: -10, top: -15 }}
+          >
+            <div className="text-xl">{product.quantity}</div>
+          </div>
+          <div
+            className="absolute h-12 w-24 flex justify-center items-center rounded-full bg-black text-white"
+            style={{ right: 5, top: -25 }}
+          >
+            <div className="text-md">
+              {transformNumberIntoBRL(product.price * product.quantity)}
             </div>
           </div>
-          <p className="ml-auto text-2xl">
-            {transformNumberIntoBRL(product.price)}
-          </p>
-        </div>
+        </>
+      )}
+      <div className={`${root} ${readOnly ? "h-40" : "h-60"}`}>
+        <p className="font-bold text-xl">{product.name}</p>
+        <p className="h-24">
+          {product.description.length === 0
+            ? "Produto sem descrição."
+            : product.description}
+        </p>
+        {!readOnly && (
+          <div className="flex mt-4 items-center h-12">
+            <div className="flex">
+              <button
+                disabled={quantity === undefined}
+                onClick={() => removeProduct()}
+                className="h-12 w-12 flex items-center justify-center rounded-full bg-black text-white cursor-pointer disabled:bg-gray-300"
+              >
+                -
+              </button>
+              <div
+                onClick={() => addProduct()}
+                className="ml-3 h-12 w-12 flex items-center justify-center rounded-full bg-black text-white  cursor-pointer"
+              >
+                +
+              </div>
+            </div>
+            <p className="ml-auto text-2xl">
+              {transformNumberIntoBRL(product.price)}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

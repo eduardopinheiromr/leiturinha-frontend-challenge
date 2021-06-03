@@ -26,7 +26,7 @@ const index = observer(() => {
       </div>
       <div className="text-secondary text-center flex md:flex-col w-full mr-3">
         <p className="md:text-9xl ml-auto mr-2 md:m-0 ">{orders.length}</p>
-        <p> pedido{orders.length > 1 && "s"} em aberto</p>
+        <p> pedido{(orders.length === 0 || orders.length > 1) && "s"}</p>
       </div>
       {/* <p>Total faturado até o momento {transformNumberIntoBRL(total)}</p> */}
     </div>

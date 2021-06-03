@@ -4,13 +4,14 @@ import styles from "./DataRow.module.scss";
 
 type Props = {
   order: Order;
+  onClick: () => void;
 };
 
-export default function index({ order }: Props) {
+export default function index({ order, onClick }: Props) {
   const { root } = styles;
 
   return (
-    <div className={root}>
+    <div className={root} onClick={onClick}>
       <h3>#{order.id}</h3>
       <h3>{order.customerName}</h3>
       <h3>{order.total}</h3>

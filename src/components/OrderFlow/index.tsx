@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import Card from "../Card";
+import ProductCard from "../ProductCard";
 import StepChip from "../StepChip";
 import Payment from "../Payment";
 import { useStore } from "src/stores";
@@ -21,11 +21,11 @@ const index = observer(() => {
     .filter(product => product.category === "drink");
 
   const foodCards = useMemo(
-    () => food.map((food, key) => <Card key={key} product={food} />),
+    () => food.map((food, key) => <ProductCard key={key} product={food} />),
     [food]
   );
   const drinkCards = useMemo(
-    () => drink.map((drink, key) => <Card key={key} product={drink} />),
+    () => drink.map((drink, key) => <ProductCard key={key} product={drink} />),
     [drink]
   );
 
@@ -45,7 +45,7 @@ const index = observer(() => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between">
+      <div className="flex justify-between mx-auto flex-col md:flex-row md:mx-0">
         {steps.map((current, key) => (
           <StepChip
             key={key}
