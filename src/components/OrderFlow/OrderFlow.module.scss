@@ -1,6 +1,7 @@
 .root {
   @apply flex flex-col;
-  > div:first-child {
+
+  nav {
     @apply flex justify-between mx-auto flex-col md:flex-row md:mx-0;
   }
 
@@ -10,5 +11,5 @@
 }
 
 .wrapper {
-  @apply flex flex-wrap justify-center mt-10;
+  @apply flex flex-wrap justify-center mt-10 list-none;
 }

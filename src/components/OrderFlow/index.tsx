@@ -19,11 +19,22 @@ const OrderFlow = observer(() => {
   const drink = products.filter(product => product.category === "drink");
 
   const foodCards = useMemo(
-    () => food.map((food, key) => <ProductCard key={key} product={food} />),
+    () =>
+      food.map((food, key) => (
+        <li key={key}>
+          <ProductCard product={food} />
+        </li>
+      )),
     [food]
   );
+
   const drinkCards = useMemo(
-    () => drink.map((drink, key) => <ProductCard key={key} product={drink} />),
+    () =>
+      drink.map((drink, key) => (
+        <li key={key}>
+          <ProductCard product={drink} />
+        </li>
+      )),
     [drink]
   );
 
@@ -42,7 +53,7 @@ const OrderFlow = observer(() => {
 
   return (
     <div className={root}>
-      <div>
+      <nav>
         {steps.map((current, key) => (
           <StepChip
             key={key}
@@ -52,7 +63,7 @@ const OrderFlow = observer(() => {
             label={current.label}
           />
         ))}
-      </div>
+      </nav>
 
       {step === 1 && (
         <input
@@ -71,7 +82,7 @@ const OrderFlow = observer(() => {
       )}
       {step === 2 && (
         <div>
-          <div className={wrapper}>{foodCards}</div>
+          <ul className={wrapper}>{foodCards}</ul>
         </div>
       )}
       {step === 3 && (

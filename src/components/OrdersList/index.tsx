@@ -8,18 +8,27 @@ import styles from "./OrdersList.module.scss";
 
 const OrdersList = observer(() => {
   const store = useStore();
-  const orders = [...store.getOrders()].sort((a, b) => b.id - a.id);
-
+  const ordersToDisplay = [...store.getDisplayedOrders()].sort(
+    (a, b) => b.id - a.id
+  );
+  const orders = store.getOrders();
   const orderOpened = store.getOrderOpened();
 
   const lastFourDigits = orderOpened.payment.cardNumber.slice(15, 19);
 
+  const haveOrdersToDisplay = ordersToDisplay.length > 0;
   const haveOrders = orders.length > 0;
+
+  const message =
+    haveOrders && !haveOrdersToDisplay
+      ? "Não há pedidos para esta pesquisa"
+      : "Não há pedidos";
+
   return (
     <div>
-      {haveOrders && (
+      {haveOrdersToDisplay && (
         <ul>
-          {orders.map((order, key) => (
+          {ordersToDisplay.map((order, key) => (
             <DataRow
               key={key}
               order={order}
@@ -31,9 +40,9 @@ const OrdersList = observer(() => {
           ))}
         </ul>
       )}
-      {!haveOrders && (
+      {!haveOrdersToDisplay && (
         <div className={styles.noData}>
-          <p>Não há pedidos</p>
+          <p>{message}</p>
           <img
             loading="lazy"
             src="/assets/images/waiters-animate.svg"

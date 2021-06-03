@@ -4,6 +4,7 @@ import Modal from "../Modal";
 import OrderFlow from "../OrderFlow";
 import StepButton from "../StepButton";
 import styles from "./Header.module.scss";
+import SearchBar from "../SearchBar";
 
 type Props = {
   title: string;
@@ -17,6 +18,7 @@ export default function Header({ title }: Props) {
       <h1>{title}</h1>
       {title === "Pedidos" && (
         <>
+          <SearchBar />
           <NewOrderButton />
           <Modal
             context="newOrder"
