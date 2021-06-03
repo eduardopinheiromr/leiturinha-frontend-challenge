@@ -23,6 +23,8 @@ export type CreditCard = {
   cvv: string;
 };
 
+export type Module = "orders" | "billing";
+
 export type ModalContext = "newOrder" | "openOrder";
 
 export type Categories = "food" | "drink";

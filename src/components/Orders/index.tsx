@@ -8,7 +8,7 @@ export default function index() {
 
   return (
     <div className={root}>
-      <Header />
+      <Header title="Pedidos" />
       <OrdersList />
     </div>
   );

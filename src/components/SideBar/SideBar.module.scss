@@ -1,8 +1,8 @@
 .root {
-  @apply bg-primary flex items-center md:pt-32 md:flex-col;
+  @apply bg-primary md:pt-32 flex md:flex-col items-center;
   height: 50px;
   @screen md {
-    width: 400px;
+    width: 320px;
     @apply h-screen;
   }
 }

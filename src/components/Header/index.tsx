@@ -5,16 +5,28 @@ import OrderFlow from "../OrderFlow";
 import StepButton from "../StepButton";
 import styles from "./Header.module.scss";
 
-export default function index() {
+type Props = {
+  title: string;
+};
+
+export default function index({ title }: Props) {
   const { root } = styles;
 
   return (
     <div className={root}>
-      <h1>Pedidos</h1>
-      <NewOrderButton />
-      <Modal context="newOrder" title="Novo pedido" confirm={<StepButton />}>
-        <OrderFlow />
-      </Modal>
+      <h1>{title}</h1>
+      {title === "Pedidos" && (
+        <>
+          <NewOrderButton />
+          <Modal
+            context="newOrder"
+            title="Novo pedido"
+            confirm={<StepButton />}
+          >
+            <OrderFlow />
+          </Modal>
+        </>
+      )}
     </div>
   );
 }

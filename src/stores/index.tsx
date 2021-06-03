@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext, useEffect, FC } from "react";
-import { ModalContext, Order, Product } from "./types";
+import { ModalContext, Module, Order, Product } from "./types";
 import { getAllProducts } from "../services/products";
 import { sumTotalPrice } from "src/utils";
 import axios from "axios";
@@ -30,6 +30,7 @@ class ProductsStore {
   } = { newOrder: false, openOrder: false };
   toast: boolean = false;
   orderOpened: Order = orderInitialState;
+  module: string = "orders";
 
   constructor() {
     makeAutoObservable(this);
@@ -120,6 +121,14 @@ class ProductsStore {
 
   toggleToast() {
     this.toast = !this.toast;
+  }
+
+  getModule() {
+    return this.module;
+  }
+
+  setModule(module: Module) {
+    this.module = module;
   }
 }
 
