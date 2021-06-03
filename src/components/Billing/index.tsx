@@ -5,34 +5,26 @@ import styles from "./Billing.module.scss";
 import { useStore } from "src/stores";
 import { transformNumberIntoBRL } from "src/utils";
 import { observer } from "mobx-react-lite";
-import { Result } from "src/stores/types";
+import { BillingProduct, Result } from "src/stores/types";
 
 const index = observer(() => {
-  const { root } = styles;
+  const { root, totalContainer, charts, chart } = styles;
 
   const store = useStore();
-
   const orders = store.getOrders();
 
-  const total =
-    orders.length > 0
-      ? transformNumberIntoBRL(
-          orders
-            .map(order =>
-              Number(order.total.replace("R$", "").replace(",", "."))
-            )
-            .reduce((total, current) => total + current)
-        )
-      : 0;
+  const orderIsEmpty = orders.length > 0;
+  const total = orderIsEmpty
+    ? transformNumberIntoBRL(
+        orders
+          .map(order => Number(order.total.replace("R$", "").replace(",", ".")))
+          .reduce((total, current) => total + current)
+      )
+    : 0;
 
   const rawProducts = orders
     .map(order => {
-      const products: {
-        name: string;
-        quantity: number;
-        total: number;
-        category: string;
-      }[] = [];
+      const products: BillingProduct[] = [];
 
       order.orderedItems.forEach(ordered => {
         const { name, quantity, price, category } = ordered;
@@ -45,14 +37,14 @@ const index = observer(() => {
     .flat();
 
   const productsRanking = rawProducts
-    .reduce((accumulator: Result[], cur: Result) => {
-      const name = cur.name,
-        found = accumulator.find((elem: Result) => {
-          return elem.name == name;
+    .reduce((accumulator: Result[], current: Result) => {
+      const name = current.name,
+        found = accumulator.find((element: Result) => {
+          return element.name == name;
         });
 
-      if (found) found.quantity += cur.quantity;
-      else accumulator.push(cur);
+      if (found) found.quantity += current.quantity;
+      else accumulator.push(current);
       return accumulator;
     }, [])
     .sort((a, b) => b.quantity - a.quantity);
@@ -65,20 +57,20 @@ const index = observer(() => {
   return (
     <div className={root}>
       <Header title="Faturamento" />
-      <div className="text-center rounded-xl p-5 w-80 mx-auto shadow-2xl hover:transform hover:scale-105 transition delay-50">
-        <p className="text-xl">Total faturado até o momento </p>
-        <p className="text-6xl font-bold">{total}</p>
+      <div className={totalContainer}>
+        <p>Total faturado até o momento </p>
+        <p>{total}</p>
       </div>
-      {orders.length > 0 && (
+      {orderIsEmpty && (
         <>
-          <div className="flex flex-wrap justify-center items-center">
-            <div className="w-80 md:w-2/4 text-center my-12">
-              <h3 className="text-3xl font-bold">Comidas</h3>
-              <Chart products={foods} />
+          <div className={charts}>
+            <div>
+              <h3>Comidas</h3>
+              <Chart className={chart} products={foods} />
             </div>
-            <div className="w-80 md:w-2/4 text-center">
-              <h3 className="text-3xl font-bold">Bebidas</h3>
-              <Chart products={drinks} />
+            <div>
+              <h3>Bebidas</h3>
+              <Chart className={chart} products={drinks} />
             </div>
           </div>
         </>

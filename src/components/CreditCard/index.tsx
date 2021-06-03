@@ -3,8 +3,10 @@ import { creditCardFlag } from "src/utils";
 import InputMask from "react-input-mask";
 import { useStore } from "src/stores";
 import { observer } from "mobx-react-lite";
+import styles from "./CreditCard.module.scss";
 
-const index = observer(() => {
+const CreditCard = observer(() => {
+  const { root, creditCardContainer, flagStyle } = styles;
   const store = useStore();
   const newOrder = store.getNewOrder();
   const cardFlag = creditCardFlag(newOrder.payment.cardNumber);
@@ -16,19 +18,14 @@ const index = observer(() => {
       : "";
 
   return (
-    <div className="space-y-16">
-      <div className="w-80 md:w-96 h-56 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-110">
-        <img
-          className="relative object-cover w-full h-full rounded-xl"
-          style={{ filter: "sepia(100%) brightness(40%)" }}
-          src="/assets/images/cardBg.png"
-        />
-        <div className="w-full px-8 absolute top-8">
-          <div className="flex justify-between">
+    <div className={root}>
+      <div className={creditCardContainer}>
+        <img src="/assets/images/cardBg.png" />
+        <div>
+          <div>
             <div>
-              <p className="font-light">Nome</p>
+              <p>Nome</p>
               <input
-                className="font-medium tracking-widest bg-transparent"
                 placeholder="Digite o nome..."
                 value={newOrder.payment.name}
                 onChange={event =>
@@ -43,16 +40,16 @@ const index = observer(() => {
               />
             </div>
             {flagUrl ? (
-              <img className="w-14 h-14" src={flagUrl} />
+              <img className={flagStyle} src={flagUrl} />
             ) : (
-              <div className="w-14 h-14" />
+              <div className={flagStyle} />
             )}
           </div>
           <div className="pt-1">
-            <p className="font-light">Número do cartão</p>
+            <p>Número do cartão</p>
             <InputMask
               mask="9999 9999 9999 9999"
-              className="font-medium tracking-widest bg-transparent w-56"
+              className="w-56"
               placeholder="0000 0000 0000 0000"
               value={newOrder.payment.cardNumber}
               onChange={event =>
@@ -72,7 +69,7 @@ const index = observer(() => {
                 <p className="font-light text-xs">Validade</p>
                 <InputMask
                   mask="99/99"
-                  className="font-medium tracking-widest bg-transparent w-14"
+                  className="w-14"
                   placeholder="04/28"
                   value={newOrder.payment.goodThru}
                   onChange={event =>
@@ -87,9 +84,9 @@ const index = observer(() => {
                 />
               </div>
               <div>
-                <p className="font-light text-xs">CVC</p>
+                <p className="text-xs">CVC</p>
                 <input
-                  className="font-medium tracking-widest bg-transparent w-14"
+                  className="w-14"
                   maxLength={3}
                   placeholder="787"
                   value={newOrder.payment.cvv}
@@ -112,4 +109,4 @@ const index = observer(() => {
   );
 });
 
-export default index;
+export default CreditCard;

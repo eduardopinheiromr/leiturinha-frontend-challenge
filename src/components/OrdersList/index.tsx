@@ -6,27 +6,31 @@ import Modal from "../Modal";
 import { observer } from "mobx-react-lite";
 import styles from "./OrdersList.module.scss";
 
-const index = observer(() => {
+const OrdersList = observer(() => {
   const store = useStore();
   const orders = [...store.getOrders()].sort((a, b) => b.id - a.id);
 
   const orderOpened = store.getOrderOpened();
 
+  const lastFourDigits = orderOpened.payment.cardNumber.slice(15, 19);
+
   const haveOrders = orders.length > 0;
   return (
     <div>
-      {haveOrders &&
-        orders.map((order, key) => (
-          <DataRow
-            key={key}
-            order={order}
-            onClick={() => {
-              store.toggleModal("openOrder", true);
-              store.setOrderOpened(order);
-            }}
-          />
-        ))}
-
+      {haveOrders && (
+        <ul>
+          {orders.map((order, key) => (
+            <DataRow
+              key={key}
+              order={order}
+              onClick={() => {
+                store.toggleModal("openOrder", true);
+                store.setOrderOpened(order);
+              }}
+            />
+          ))}
+        </ul>
+      )}
       {!haveOrders && (
         <div className={styles.noData}>
           <p>Não há pedidos</p>
@@ -43,25 +47,25 @@ const index = observer(() => {
         context="openOrder"
         title={`Pedido N#${orderOpened.id} - ${orderOpened.customerName}`}
       >
-        <div className="flex flex-col md:flex-row">
+        <div className={styles.modalRoot}>
           <div>
-            {orderOpened.orderedItems.map((product, key) => (
-              <div className="mb-10" key={key}>
-                <ProductCard product={product} readOnly />
+            <ul>
+              {orderOpened.orderedItems.map((product, key) => (
+                <li className="mb-10" key={key}>
+                  <ProductCard product={product} readOnly />
+                </li>
+              ))}
+            </ul>
+            <div className={styles.billingInfo}>
+              <div>
+                <p>Total</p>
+                <p>{orderOpened.total}</p>
               </div>
-            ))}
-          </div>
-          <div className="flex flex-col">
-            <div className="text-center flex flex-col items-center justify-center px-10 h-36 border mx-5">
-              <p className="text-3xl">Total</p>
-              <p className="text-5xl font-bold">{orderOpened.total}</p>
-            </div>
 
-            <div className="text-center flex flex-col items-center pt-3 px-10 h-24 border mx-5 mt-5">
-              <p className="text-xl">Pagamento</p>
-              <p className="text-md">
-                Cartão final {orderOpened.payment.cardNumber.slice(15, 19)}
-              </p>
+              <div>
+                <p>Pagamento</p>
+                <p>Cartão final {lastFourDigits}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -70,4 +74,4 @@ const index = observer(() => {
   );
 });
 
-export default index;
+export default OrdersList;

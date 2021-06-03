@@ -12,7 +12,7 @@ type Props = {
   size?: "md" | "lg";
 };
 
-const index = observer(({ children, confirm, title, context, size }: Props) => {
+const Modal = observer(({ children, confirm, title, context, size }: Props) => {
   const store = useStore();
 
   const open = store.getModal(context);
@@ -63,4 +63,4 @@ const index = observer(({ children, confirm, title, context, size }: Props) => {
   );
 });
 
-export default index;
+export default Modal;

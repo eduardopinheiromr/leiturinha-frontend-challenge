@@ -6,19 +6,17 @@ import { useStore } from "src/stores";
 import styles from "./OrderFlow.module.scss";
 import { observer } from "mobx-react-lite";
 
-const index = observer(() => {
-  const { wrapper } = styles;
+const OrderFlow = observer(() => {
+  const { root, wrapper } = styles;
   const store = useStore();
   const step = store.getStep();
 
   const newOrder = store.getNewOrder();
 
-  const food = store
-    .getProducts()
-    .filter(product => product.category === "food");
-  const drink = store
-    .getProducts()
-    .filter(product => product.category === "drink");
+  const products = store.getProducts();
+
+  const food = products.filter(product => product.category === "food");
+  const drink = products.filter(product => product.category === "drink");
 
   const foodCards = useMemo(
     () => food.map((food, key) => <ProductCard key={key} product={food} />),
@@ -32,7 +30,6 @@ const index = observer(() => {
   const handleNextStep = (key?: string) => {
     if (key === "Enter") {
       store.setStep(step + 1);
-      return;
     }
   };
 
@@ -44,8 +41,8 @@ const index = observer(() => {
   ];
 
   return (
-    <div className="flex flex-col">
-      <div className="flex justify-between mx-auto flex-col md:flex-row md:mx-0">
+    <div className={root}>
+      <div>
         {steps.map((current, key) => (
           <StepChip
             key={key}
@@ -61,7 +58,6 @@ const index = observer(() => {
         <input
           autoFocus
           type="text"
-          className="my-10 p-5 mx-auto w-72"
           placeholder="Digite o nome do cliente"
           value={newOrder.customerName}
           onChange={event =>
@@ -88,4 +84,4 @@ const index = observer(() => {
   );
 });
 
-export default index;
+export default OrderFlow;

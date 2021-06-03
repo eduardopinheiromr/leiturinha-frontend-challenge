@@ -16,9 +16,10 @@ const options = {
 
 type Props = {
   products: Result[];
+  className?: string;
 };
 
-export default function index({ products }: Props) {
+export default function index({ products, className }: Props) {
   const data = {
     labels: products.map(
       product => `${product.name} ${transformNumberIntoBRL(product.total)}`
@@ -48,5 +49,7 @@ export default function index({ products }: Props) {
       },
     ],
   };
-  return <Doughnut type="bar" data={data} options={options} />;
+  return (
+    <Doughnut className={className} type="bar" data={data} options={options} />
+  );
 }

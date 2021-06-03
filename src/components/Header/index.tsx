@@ -9,11 +9,11 @@ type Props = {
   title: string;
 };
 
-export default function index({ title }: Props) {
+export default function Header({ title }: Props) {
   const { root } = styles;
 
   return (
-    <div className={root}>
+    <header className={root}>
       <h1>{title}</h1>
       {title === "Pedidos" && (
         <>
@@ -27,6 +27,6 @@ export default function index({ title }: Props) {
           </Modal>
         </>
       )}
-    </div>
+    </header>
   );
 }

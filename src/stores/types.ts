@@ -30,6 +30,18 @@ export type Result = {
   category: string;
 };
 
+export type Modals = {
+  newOrder: boolean;
+  openOrder: boolean;
+};
+
+export type BillingProduct = {
+  name: string;
+  quantity: number;
+  total: number;
+  category: string;
+};
+
 export type Module = "orders" | "billing";
 
 export type ModalContext = "newOrder" | "openOrder";

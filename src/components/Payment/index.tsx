@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { sumTotalPrice } from "src/utils";
 import CreditCard from "../CreditCard";
 
-const index = observer(() => {
+const Payment = observer(() => {
   const { root } = styles;
 
   const store = useStore();
@@ -15,9 +15,9 @@ const index = observer(() => {
 
   return (
     <div className={root}>
-      <div className="text-center flex flex-col items-center justify-center px-10 h-36 border m-5">
-        <p className="text-3xl">Total</p>
-        <p className="text-5xl font-bold">{total}</p>
+      <div>
+        <p>Total</p>
+        <p>{total}</p>
       </div>
       <h3>Digite os dados do cartão</h3>
       <CreditCard />
@@ -25,4 +25,4 @@ const index = observer(() => {
   );
 });
 
-export default index;
+export default Payment;

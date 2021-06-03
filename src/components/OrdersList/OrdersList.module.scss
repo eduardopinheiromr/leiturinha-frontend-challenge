@@ -8,3 +8,35 @@
     margin: 30px auto;
   }
 }
+
+.modalRoot {
+  div:first-child {
+    @apply flex flex-col md:flex-row;
+  }
+}
+
+.billingInfo {
+  @apply flex flex-col;
+
+  div:first-child {
+    @apply text-center flex flex-col items-center justify-center px-10 h-36 border mx-5;
+
+    p:first-child {
+      @apply text-3xl;
+    }
+    p:last-child {
+      @apply text-5xl font-bold;
+    }
+  }
+
+  div:last-child {
+    @apply text-center flex flex-col items-center pt-3 px-10 h-24 border mx-5 mt-5;
+
+    p:first-child {
+      @apply text-xl;
+    }
+    p:last-child {
+      @apply text-base;
+    }
+  }
+}

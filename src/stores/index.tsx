@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext, useEffect, FC } from "react";
-import { ModalContext, Module, Order, Product } from "./types";
+import { ModalContext, Modals, Module, Order, Product } from "./types";
 import { getAllProducts } from "../services/products";
 import { sumTotalPrice } from "src/utils";
 import axios from "axios";
@@ -24,10 +24,7 @@ class ProductsStore {
   newOrder: Order = orderInitialState;
   orders: Order[] = [];
   step: number = 1;
-  modal: {
-    newOrder: boolean;
-    openOrder: boolean;
-  } = { newOrder: false, openOrder: false };
+  modal: Modals = { newOrder: false, openOrder: false };
   toast: boolean = false;
   orderOpened: Order = orderInitialState;
   module: string = "orders";
@@ -58,12 +55,15 @@ class ProductsStore {
 
   async addNewOrder(order: Order) {
     const total = sumTotalPrice(order.orderedItems);
-
-    const { data } = await axios.post("http://localhost:3000/api/checkout", {
-      creditCard: order.payment,
-    });
-
-    console.log(data);
+    const isProd = process.env.NODE_ENV === "production";
+    const { data } = await axios.post(
+      isProd
+        ? "https://leiturinha-frontend-challenge.vercel.app/api/checkout"
+        : "http://localhost:3000/api/checkout",
+      {
+        creditCard: order.payment,
+      }
+    );
 
     this.orders.push({
       ...order,

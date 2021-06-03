@@ -7,18 +7,20 @@ type Props = {
   onClick: () => void;
 };
 
-export default function index({ order, onClick }: Props) {
+export default function DataRow({ order, onClick }: Props) {
   const { root } = styles;
 
+  const { id, customerName, total, datetime } = order;
+
   return (
-    <div className={root} onClick={onClick}>
-      <h3>#{order.id}</h3>
-      <h3>{order.customerName}</h3>
-      <h3>{order.total}</h3>
-      <h3>
+    <li className={root} onClick={onClick}>
+      <p>#{id}</p>
+      <p>{customerName}</p>
+      <p>{total}</p>
+      <p>
         Pedido feito as <br />
-        {new Date(order.datetime).toLocaleTimeString()}
-      </h3>
-    </div>
+        {new Date(datetime).toLocaleTimeString()}
+      </p>
+    </li>
   );
 }

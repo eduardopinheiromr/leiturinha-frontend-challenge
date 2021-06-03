@@ -10,17 +10,18 @@ type Props = {
   readOnly?: boolean;
 };
 
-const index = observer(({ product, readOnly }: Props) => {
-  const { root } = styles;
+const ProductCard = observer(({ product, readOnly }: Props) => {
+  const { root, card } = styles;
   const store = useStore();
   const newOrder = store.getNewOrder();
 
   const addProduct = () => {
-    if (
+    const isFirstProduct =
       newOrder.orderedItems.filter(
         orderedItem => orderedItem.name === product.name
-      ).length === 0
-    ) {
+      ).length === 0;
+
+    if (isFirstProduct) {
       store.setNewOrder({
         ...newOrder,
         orderedItems: [...newOrder.orderedItems, { ...product, quantity: 1 }],
@@ -65,13 +66,10 @@ const index = observer(({ product, readOnly }: Props) => {
     .pop()?.quantity;
 
   return (
-    <div className="relative">
+    <div className={root}>
       {quantity && (
-        <div
-          className="absolute h-12 w-12 flex justify-center items-center rounded-full bg-black text-white"
-          style={{ right: 5 }}
-        >
-          <div className="text-xl">{quantity}</div>
+        <div className="quantity">
+          <p>{quantity}</p>
         </div>
       )}
       {readOnly && (
@@ -92,7 +90,7 @@ const index = observer(({ product, readOnly }: Props) => {
           </div>
         </>
       )}
-      <div className={`${root} ${readOnly ? "h-40" : "h-72 sm:h-60"}`}>
+      <div className={`${card} ${readOnly ? "h-40" : "h-72 sm:h-60"}`}>
         <p className="font-bold text-xl">{product.name}</p>
         <p className="h-24">
           {product.description.length === 0
@@ -126,4 +124,4 @@ const index = observer(({ product, readOnly }: Props) => {
   );
 });
 
-export default index;
+export default ProductCard;
