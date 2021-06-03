@@ -10,8 +10,8 @@
 }
 
 .modalRoot {
-  div:first-child {
-    @apply flex flex-col md:flex-row;
+  > div:first-of-type {
+    @apply flex flex-col md:flex-row items-center md:items-start md:justify-between;
   }
 }
 

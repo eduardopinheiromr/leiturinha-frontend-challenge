@@ -4,25 +4,21 @@
 
 .creditCardContainer {
   @apply w-80 md:w-96 h-56 m-auto rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-110;
-  img {
+
+  > img {
     @apply relative object-cover w-full h-full rounded-xl;
 
     filter: sepia(100%) brightness(40%);
   }
 
-  div:first-child {
+  > div:first-of-type {
     @apply w-full px-8 absolute top-8;
 
-    div:first-child {
+    > div:first-of-type {
       @apply flex justify-between;
-
-      p {
-        @apply font-light;
-      }
-
-      input {
-        @apply font-medium tracking-widest bg-transparent;
-      }
+    }
+    input {
+      @apply font-medium tracking-widest bg-transparent;
     }
   }
 }

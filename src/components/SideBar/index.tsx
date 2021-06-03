@@ -3,8 +3,8 @@ import styles from "./SideBar.module.scss";
 import { useStore } from "src/stores";
 import { observer } from "mobx-react-lite";
 
-const index = observer(() => {
-  const { root } = styles;
+const SideBar = observer(() => {
+  const { root, logo, ordersStyle, moduleNavigation } = styles;
   const store = useStore();
 
   const orders = store.getOrders();
@@ -18,22 +18,18 @@ const index = observer(() => {
     <div className={root}>
       <div>
         <img
-          loading="lazy"
           src="/assets/images/logo.png"
           alt="Logo do restaurante"
-          className="h-20 w-28 md:h-64 md:w-64"
+          className={logo}
         />
       </div>
-      <div className="text-secondary text-center flex md:flex-col w-full mr-3">
-        <p className="md:text-9xl ml-auto mr-2 md:m-0 ">{orders.length}</p>
+      <div className={ordersStyle}>
+        <p>{orders.length}</p>
         <p> pedido{(orders.length === 0 || orders.length > 1) && "s"}</p>
       </div>
 
-      <div className="md:mt-5">
-        <button
-          onClick={() => store.setModule(otherModule)}
-          className="h-8 mr-3 md:h-12 md:mr-0 rounded-xl bg-secondary px-3"
-        >
+      <div className={moduleNavigation}>
+        <button onClick={() => store.setModule(otherModule)}>
           {otherModuleLabel}
         </button>
       </div>
@@ -41,4 +37,4 @@ const index = observer(() => {
   );
 });
 
-export default index;
+export default SideBar;

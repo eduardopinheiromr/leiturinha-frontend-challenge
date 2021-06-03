@@ -6,3 +6,22 @@
     @apply h-auto;
   }
 }
+
+.logo {
+  @apply h-20 w-28 md:h-64 md:w-64;
+}
+
+.ordersStyle {
+  @apply text-secondary text-center flex md:flex-col w-full mr-3;
+
+  > p:first-child {
+    @apply md:text-9xl ml-auto mr-2 md:m-0;
+  }
+}
+.moduleNavigation {
+  @apply md:mt-5;
+
+  button {
+    @apply h-8 mr-3 md:h-12 md:mr-0 rounded-xl bg-secondary px-3;
+  }
+}

@@ -1,0 +1,15 @@
+.root {
+  @apply absolute flex items-center bg-black border-l-4 border-green-500 py-2 px-3 mb-2;
+
+  right: 25px;
+  top: 25px;
+  box-shadow: "0 5px 20px black";
+}
+
+.icon {
+  @apply text-green-500 rounded-full bg-white mr-3;
+}
+
+.message {
+  @apply text-white max-w-xs;
+}

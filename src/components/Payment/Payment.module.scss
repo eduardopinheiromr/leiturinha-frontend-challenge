@@ -1,7 +1,7 @@
 .root {
   @apply flex flex-col justify-center items-center mt-10;
 
-  div:first-child {
+  > div:first-child {
     @apply text-center flex flex-col items-center justify-center px-10 h-36 border m-5;
 
     p:first-child {

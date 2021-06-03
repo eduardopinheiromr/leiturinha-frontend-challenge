@@ -17,14 +17,14 @@ export default function index({ position, step, onClick, label }: Props) {
       }
       onClick={onClick}
     >
-      <div
+      <p
         className={
           (isSelected && "bg-black text-white") +
           " border h-10 w-10 flex items-center justify-center rounded-full"
         }
       >
         {position}
-      </div>
+      </p>
       <span className="ml-3">{label}</span>
     </div>
   );

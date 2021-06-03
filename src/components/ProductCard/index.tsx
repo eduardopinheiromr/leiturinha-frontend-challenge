@@ -11,7 +11,8 @@ type Props = {
 };
 
 const ProductCard = observer(({ product, readOnly }: Props) => {
-  const { root, card } = styles;
+  const { root, quantityStyle, card, quantityBadge, priceBadge, actions } =
+    styles;
   const store = useStore();
   const newOrder = store.getNewOrder();
 
@@ -65,58 +66,45 @@ const ProductCard = observer(({ product, readOnly }: Props) => {
     .filter(orderedItem => orderedItem.name === product.name)
     .pop()?.quantity;
 
+  const productDescription =
+    product.description.length === 0
+      ? "Produto sem descrição."
+      : product.description;
+
   return (
     <div className={root}>
       {quantity && (
-        <div className="quantity">
+        <div className={quantityStyle}>
           <p>{quantity}</p>
         </div>
       )}
       {readOnly && (
         <>
-          <div
-            className="absolute h-12 w-12 flex justify-center items-center rounded-full bg-black text-white"
-            style={{ left: -10, top: -15 }}
-          >
-            <div className="text-xl">{product.quantity}</div>
+          <div className={quantityBadge}>
+            <p>{product.quantity}</p>
           </div>
-          <div
-            className="absolute h-12 w-24 flex justify-center items-center rounded-full bg-black text-white"
-            style={{ right: 5, top: -25 }}
-          >
-            <div className="text-md">
-              {transformNumberIntoBRL(product.price * product.quantity)}
-            </div>
+          <div className={priceBadge}>
+            <p>{transformNumberIntoBRL(product.price * product.quantity)}</p>
           </div>
         </>
       )}
-      <div className={`${card} ${readOnly ? "h-40" : "h-72 sm:h-60"}`}>
-        <p className="font-bold text-xl">{product.name}</p>
-        <p className="h-24">
-          {product.description.length === 0
-            ? "Produto sem descrição."
-            : product.description}
-        </p>
+      <div className={`${card} ${readOnly ? "h-60" : "h-72 sm:h-60"}`}>
+        <p>{product.name}</p>
+        <p>{productDescription}</p>
         {!readOnly && (
-          <div className="flex mt-12 sm:mt-8 items-center h-16 sm:h-12">
-            <div className="flex">
+          <div className={actions}>
+            <div>
               <button
                 disabled={quantity === undefined}
                 onClick={() => removeProduct()}
-                className="h-12 w-12 flex items-center justify-center rounded-full bg-black text-white cursor-pointer disabled:bg-gray-300"
               >
                 -
               </button>
-              <div
-                onClick={() => addProduct()}
-                className="ml-3 h-12 w-12 flex items-center justify-center rounded-full bg-black text-white  cursor-pointer"
-              >
+              <button onClick={() => addProduct()} className="ml-3">
                 +
-              </div>
+              </button>
             </div>
-            <p className="ml-auto text-2xl">
-              {transformNumberIntoBRL(product.price)}
-            </p>
+            <p>{transformNumberIntoBRL(product.price)}</p>
           </div>
         )}
       </div>

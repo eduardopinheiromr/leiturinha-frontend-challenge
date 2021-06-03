@@ -7,8 +7,10 @@ import styles from "./CreditCard.module.scss";
 
 const CreditCard = observer(() => {
   const { root, creditCardContainer, flagStyle } = styles;
+
   const store = useStore();
   const newOrder = store.getNewOrder();
+
   const cardFlag = creditCardFlag(newOrder.payment.cardNumber);
   const flagUrl =
     cardFlag === "MASTER"
