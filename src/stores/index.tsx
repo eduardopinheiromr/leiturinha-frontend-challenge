@@ -4,6 +4,7 @@ import { ModalContext, Modals, Module, Order, Product } from "./types";
 import { getAllProducts } from "../services/products";
 import { sumTotalPrice } from "src/utils";
 import axios from "axios";
+import { runInAction } from "mobx";
 
 export const orderInitialState = {
   id: 0,
@@ -23,6 +24,7 @@ class ProductsStore {
   products: Product[] = [];
   newOrder: Order = orderInitialState;
   orders: Order[] = [];
+  displayedOrders: Order[] = [];
   step: number = 1;
   modal: Modals = { newOrder: false, openOrder: false };
   toast: boolean = false;
@@ -64,12 +66,14 @@ class ProductsStore {
         creditCard: order.payment,
       }
     );
-
-    this.orders.push({
-      ...order,
-      id: this.orders.length + 1,
-      datetime: new Date(),
-      total,
+    runInAction(() => {
+      this.orders.push({
+        ...order,
+        id: this.orders.length + 1,
+        datetime: new Date(),
+        total,
+      });
+      this.displayedOrders = this.orders;
     });
   }
 
@@ -129,6 +133,14 @@ class ProductsStore {
 
   setModule(module: Module) {
     this.module = module;
+  }
+
+  displayFilteredOrders(orders: Order[]) {
+    this.displayedOrders = orders;
+  }
+
+  getDisplayedOrders() {
+    return this.displayedOrders;
   }
 }
 

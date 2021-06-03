@@ -3,7 +3,7 @@
 
   .quantityStyle {
     @apply absolute h-10 w-10 flex justify-center items-center rounded-full bg-black text-white;
-    right: 5;
+    right: 5px;
 
     p {
       @apply text-xl;
