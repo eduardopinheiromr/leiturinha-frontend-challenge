@@ -1,0 +1,14 @@
+.root {
+  @apply flex flex-col;
+  > div:first-child {
+    @apply flex justify-between mx-auto flex-col md:flex-row md:mx-0;
+  }
+
+  > input {
+    @apply my-10 p-5 mx-auto w-72;
+  }
+}
+
+.wrapper {
+  @apply flex flex-wrap justify-center mt-10;
+}

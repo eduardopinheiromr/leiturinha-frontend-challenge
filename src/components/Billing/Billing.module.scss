@@ -1,0 +1,43 @@
+.root {
+  @apply bg-secondary;
+
+  min-height: 100vh;
+
+  @screen md {
+    width: calc(100vw - 320px);
+  }
+}
+
+.totalContainer {
+  @apply text-center rounded-xl p-5 w-80 mx-auto shadow-2xl hover:transform hover:scale-105 transition;
+
+  p:first-child {
+    @apply text-xl;
+  }
+  p:last-child {
+    @apply text-6xl font-bold;
+  }
+}
+
+.charts {
+  @apply flex flex-wrap justify-center items-center;
+
+  div {
+    @apply flex flex-col items-center;
+  }
+
+  div h3 {
+    @apply text-3xl font-bold;
+  }
+  div:first-child {
+    @apply w-80 md:w-2/4 text-center my-12;
+  }
+  div:last-child {
+    @apply w-80 md:w-2/4 text-center;
+  }
+}
+
+.chart {
+  max-width: 500px;
+  max-height: 500px;
+}

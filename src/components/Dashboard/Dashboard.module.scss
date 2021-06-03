@@ -1,0 +1,10 @@
+.root {
+  @apply flex flex-col;
+
+  min-height: 100vh;
+  height: 100% !important;
+
+  @screen md {
+    @apply flex-row;
+  }
+}

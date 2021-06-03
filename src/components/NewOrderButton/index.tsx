@@ -1,6 +1,18 @@
 import React from "react";
 import styles from "./NewOrder.module.scss";
+import { useStore } from "src/stores";
 
 export default function NewOrderButton() {
-  return <button className={styles.error}>New Order</button>;
+  const { root } = styles;
+
+  const store = useStore();
+
+  return (
+    <button
+      className={root}
+      onClick={() => store.toggleModal("newOrder", true)}
+    >
+      Novo pedido +
+    </button>
+  );
 }

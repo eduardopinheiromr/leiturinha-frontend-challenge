@@ -1,0 +1,18 @@
+.root {
+  @apply flex
+    items-center
+    justify-around
+    p-5
+    bg-white
+    border-b
+    border-primary
+    text-center;
+
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    @apply bg-gray-200;
+    transform: scale(1.01);
+    z-index: 5;
+  }
+}

@@ -1,0 +1,54 @@
+.root {
+  @apply fixed z-10 inset-0 overflow-y-auto;
+}
+
+.container {
+  @apply flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0;
+}
+
+.background {
+  @apply fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity;
+}
+
+.centralize {
+  @apply hidden sm:inline-block sm:align-middle sm:h-screen;
+}
+
+.modalBackground {
+  @apply flex flex-col justify-between sm:inline-block bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-full h-screen;
+}
+
+.modalMd {
+  max-width: 800px;
+  max-height: 800px;
+}
+
+.modalLg {
+  max-width: 1200px;
+  max-height: 800px;
+}
+
+.content {
+  padding: 25px;
+  height: 78%;
+  @apply overflow-y-scroll;
+
+  @screen sm {
+    height: 85%;
+  }
+}
+
+.actions {
+  @apply bg-gray-50 px-4 py-3 flex flex-col sm:flex-row justify-between;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-bottom: 1px solid lightgray;
+}
+
+.cancel {
+  @apply order-2 sm:order-1 mt-3 sm:mt-0 rounded-md px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm;
+}

@@ -1,0 +1,60 @@
+.root {
+  @apply relative;
+
+  .quantityStyle {
+    @apply absolute h-10 w-10 flex justify-center items-center rounded-full bg-black text-white;
+    right: 5;
+
+    p {
+      @apply text-xl;
+    }
+  }
+}
+
+.card {
+  @apply flex flex-col rounded w-60 sm:w-80 p-5 border m-3;
+
+  p:first-child {
+    @apply font-bold text-xl;
+  }
+
+  p:nth-child(2) {
+    @apply h-24;
+  }
+}
+
+.quantityBadge {
+  @apply absolute h-10 w-10 flex justify-center items-center rounded-full bg-black text-white;
+  left: -5px;
+  top: -15px;
+  p {
+    @apply text-xl;
+  }
+}
+
+.priceBadge {
+  @apply absolute h-12 w-24 flex justify-center items-center rounded-full bg-black text-white;
+
+  right: 5px;
+  top: -25px;
+
+  p {
+    @apply text-base;
+  }
+}
+
+.actions {
+  @apply flex mt-12 sm:mt-8 items-center h-16 sm:h-12;
+
+  > div:first-child {
+    @apply flex;
+
+    button {
+      @apply h-12 w-12 flex items-center justify-center rounded-full bg-black text-white cursor-pointer disabled:bg-gray-300;
+    }
+  }
+
+  p {
+    @apply ml-auto text-2xl;
+  }
+}

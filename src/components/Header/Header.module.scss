@@ -1,0 +1,15 @@
+.root {
+  @apply flex
+    items-center
+    justify-around
+    p-5
+    w-full;
+
+  h1 {
+    @apply text-3xl lg:text-5xl font-bold;
+  }
+}
+
+.wrapper {
+  @apply flex flex-wrap justify-center;
+}
